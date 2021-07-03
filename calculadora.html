@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    
+    <style> 
+    
+
+        :root {
+            --grid-gap: 5px;
+            --button-size: 50px;
+            --border-radius: 5px;
+            --white: rgba(255, 255, 255, 0.96);
+            --violet: #96896e;
+            --gray: #362424;
+            --turquoise: #362a24;
+            --dark: #e61235;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calculator {
+            display: grid;
+            grid-gap: var(--grid-gap);
+            grid-template-columns: repeat(4, var(--button-size));
+            grid-template-rows: auto repeat(5, var(--button-size));
+            grid-template-areas: 
+            "field field field field"
+            "extraRow extraRow extraRow extraRow"
+            "number number number operator"
+            "number number number operator"
+            "number number number operator"
+            "number number number operator";
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background: var(--dark);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .calculator__fieldArea {
+            grid-area: field;
+        }
+        
+        .calculator__superior {
+            grid-area: extraRow;
+            display: grid;
+            grid-gap: var(--grid-gap);
+            grid-template-columns: repeat(4, var(--button-size));
+        }
+        
+        .calculator__numeros {
+            grid-area: number;
+            display: grid;
+            grid-gap: var(--grid-gap);
+            grid-template-rows: repeat(4, var(--button-size));
+            grid-template-columns: repeat(3, var(--button-size));
+        }
+        
+        .calculator__lado {
+            grid-area: operator;
+            display: grid;
+            grid-gap: var(--grid-gap);
+            grid-template-rows: repeat(6, var(--button-size));
+        }
+        
+        .calculator__field {
+            display: block;
+            width: 100%;
+            height: calc(var(--button-size) + 10px);
+            padding: 5px;
+            border: 0;
+            border-radius: var(--border-radius);
+            outline: 0;
+            background-color: var(--violet);
+            font-size: 15px;
+            font-weight: bold;
+        }
+        
+        .calculator__button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--button-size);
+            height: var(--button-size);
+            border: 0;
+            border-radius: var(--border-radius);
+            background-color: var(--blue);
+            color: var(--blue);
+            font-size: 16px;
+        }
+        
+        .calculator__button--zero {
+            grid-column: 1 / span 2;
+            width: 100%;
+        }
+        
+        .calculator__button--equal {
+            grid-row: 3 / span 2;
+            height: 100%;
+            background-color: var(--white);
+        }
+        
+    </style>
+    
+</head>
+
+<body  background="selic-2-jpg.jpg" alt=".jpg" 
+
+    <DIv><center><H1>UNIVALI ADS 2021</H1></center></DIv>
+    <div class="container">
+        <div class="calculator">
+            <div class="calculator__fieldArea">
+                <input class="calculator__field" disabled />
+            </div>
+            <div class="calculator__superior">
+                <button class="calculator__button calculator__button--clear">C</button>
+                <button class="calculator__button calculator__button--back"><</button>
+                <button class="calculator__button calculator__button--division" data-value="/">/</button>
+                <button class="calculator__button calculator__button--multiplication" data-value="*">&times;</button>
+            </div>
+            <div class="calculator__numeros">
+                <button class="calculator__button" data-value="1">1</button>
+                <button class="calculator__button" data-value="2">2</button>
+                <button class="calculator__button" data-value="3">3</button>
+                <button class="calculator__button" data-value="4">4</button>
+                <button class="calculator__button" data-value="5">5</button>
+                <button class="calculator__button" data-value="6">6</button>
+                <button class="calculator__button" data-value="7">7</button>
+                <button class="calculator__button" data-value="8">8</button>
+                <button class="calculator__button" data-value="9">9</button>
+                <button class="calculator__button calculator__button--zero" data-value="0">0</button>
+                <button class="calculator__button" data-value=".">.</button>
+            </div>
+            <div class="calculator__lado">
+                <button class="calculator__button calculator__button--sum" data-value="+">+</button>
+                <button class="calculator__button calculator__button--subtraction" data-value="-">-</button>
+                <button class="calculator__button calculator__button--equal">=</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var field = document.querySelector(".calculator__field");
+        var buttons = document.querySelectorAll(".calculator__button");
+        var clear = document.querySelector(".calculator__button--clear");
+        var back = document.querySelector(".calculator__button--back");
+        var equal = document.querySelector(".calculator__button--equal");
+        
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var value = button.getAttribute("data-value");
+                
+                if (value) {
+                    field.value = field.value + value;
+                }
+            });
+        });
+
+        clear.addEventListener("click", function () {
+            field.value = "";
+        });
+
+        back.addEventListener("click", function () {
+            field.value = field.value.substring(0, field.value.length-1);
+        });
+    
+        equal.addEventListener("click", function () {
+            field.value = eval(field.value);
+        });
+    </script>
+</body>
+</html>
